@@ -1,0 +1,78 @@
+.weather-card{
+    height: 420px;
+    width: 320px;
+    /* background-image:linear-gradient(#F0C524,#E57C38); */
+    background: grey;
+    margin: 30px;
+    margin-top: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border: 1px;
+    border-radius: 7px;
+
+}
+
+.weather-icon{
+    font-size:20px;
+    color: white;
+    position: relative; 
+    text-align: center;
+    top: 10px;
+    font-weight: 32;
+}
+img{
+    height: 72px;
+    width: 72px;
+}
+
+.weather-status{
+    font-size: 30px;
+    color:white;
+    text-align: center;
+    font-weight: 200;
+}
+.weather-field{
+    justify-content: center;
+    font-size: 48px;
+    color:white;
+    margin-left: 0px;
+    font-weight: 100;
+}
+
+.farenheit{
+    font-size: 30px;
+    position: relative;
+    bottom: 19px;
+    font-weight: 600;
+
+}
+.centigrade{
+    font-size: 30px;
+    position: relative;
+    bottom: 19px;
+    font-weight: 600;
+}
+#celcius-field {
+    text-align: center;
+    padding: 0%;
+}
+#farenheit-field {
+    text-align: center;
+    padding: 0%;
+
+}
+#divider{
+    text-align: center;
+    padding: 0%;
+}
+.city-name{
+    font-size: 56px;
+    color: white;
+    text-align: center;
+    font-weight: 300;
+}
+.country{
+    font-size: 24px;
+    text-align: center;
+    color: white;
+    font-weight: 200;
+}
