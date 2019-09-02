@@ -1,0 +1,10 @@
+.list-group{
+    width: 638px;
+    /* position: relative; */
+    z-index: 999;
+}
+
+#search-results{
+    position: relative;
+    left: 215px;
+}

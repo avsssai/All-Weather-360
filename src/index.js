@@ -19,7 +19,7 @@ dayContext.keys().forEach((key) => {
   const countryCode = key.split('./icons/weather/64x64/day').pop() // remove the first 2 characters
     .substring(0, key.length - 4); // remove the file extension
   obj.dayObj[countryCode] = dayContext(key);
-  console.log(obj);
+  // console.log(obj);
 });
 
 nightContext.keys().forEach((key) => {

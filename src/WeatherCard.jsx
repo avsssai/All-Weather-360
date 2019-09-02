@@ -15,7 +15,8 @@ class WeatherCard extends React.Component {
       celsius: true,
       tempInC: "",
       tempInF: "",
-      showModal: false
+      showModal: false,
+      error:'Cannot find the city.'
     };
   }
   componentDidMount() {
@@ -23,28 +24,42 @@ class WeatherCard extends React.Component {
     fetch(
       `https://api.apixu.com/v1/current.json?key=2da827a3ce074ddb854173742190807&q=${city}`
     )
-      .then(res => res.json())
-      .then(data => this.setState({ data: data, fetching: false }))
+      .then(res => 
+        res.json())
+    // .then(res=>{
+    //     if(res.status === 200){
+    //         res.json().then(object=>{
+    //             console.log(object.type,object);
+    //         })
+    //     }else if(res.status === 400){
+    //         console.log(this.state.error);
+    //     }
+    // })
+      .then(data => {
+        this.setState({ data: data, fetching: false });
+      })
       .then(() => console.log(this.state.data))
-      .then(() => this.search())
-      .catch(err => Promise.reject());
+      //   .then(() => this.search())
+      .catch(err => {
+        Promise.reject();
+      });
   }
   openModal() {
     this.setState({
       showModal: true
     });
   }
-  search() {
-    var city = this.props.cityName;
+  //   search() {
+  //     var city = this.props.cityName;
 
-    fetch(
-      `https://api.apixu.com/v1/search.json?key=2da827a3ce074ddb854173742190807&q=${city}`)
-      .then(res => res.json())
-      .then(data => {
-        //   data.forEach(el=>el.name.toString().includes('london') ? console.log(el.name) : "didn't find city by that name");
-        data.forEach(el=>console.log(el.name));
-      });
-  }
+  //     fetch(
+  //       `https://api.apixu.com/v1/search.json?key=2da827a3ce074ddb854173742190807&q=${city}`)
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         //   data.forEach(el=>el.name.toString().includes('london') ? console.log(el.name) : "didn't find city by that name");
+  //         data.forEach(el=>console.log(el.name));
+  //       });
+  //   }
   render() {
     var data = this.state.data;
     if (this.state.fetching) {
@@ -64,15 +79,18 @@ class WeatherCard extends React.Component {
         ? data.current.condition.icon.slice(-7).slice(0, 3)
         : loading;
 
+    if (data) {
+      var displayWeather =
+        data && data.current ? data.current.condition.text : loading;
+    }
+
     return (
       <div className="weather-card" onClick={() => this.openModal()}>
         <div className="weather-icon">
           {/* {images['113.png']} */}
           <Icon iconNumber={iconNumber} isDay={isDay} />
         </div>
-        <div className="weather-status">
-          {data && data.current ? data.current.condition.text : loading}
-        </div>
+        <div className="weather-status">{displayWeather}</div>
         <div className="weather-field">
           <div className="container">
             <div className="row justify-content-md-center">

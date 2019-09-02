@@ -74,16 +74,16 @@ img{
     padding: 0%;
 }
 .city-name{
-    font-size: 48px;
+    font-size: 32px;
     color: white;
     text-align: center;
-    font-weight: 300;
+    font-weight: 1000;
 }
 .country{
     font-size: 24px;
     text-align: center;
     color: white;
-    font-weight: 200;
+    font-weight: 100;
 }
 
 .small-icon{
