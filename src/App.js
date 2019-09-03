@@ -137,7 +137,7 @@ class App extends React.Component {
         All Weather 360&#176;
 
           </div>
-          <a className="git-fork" href="https://github.com/avsssai/weather360" style={{textDecoration:'none',color:'white'}}>
+          <a className="git-fork" href="https://github.com/avsssai/All-Weather-360" style={{textDecoration:'none',color:'white'}}>
                   <FontAwesomeIcon icon={faGithub}/>
                 </a>
 
@@ -166,7 +166,7 @@ class App extends React.Component {
 }
 
         <footer >
-          Made using React.js, Bootstrap and APIXU weather API.
+          Made using ReactJs, Bootstrap and APIXU weather API.
         </footer>
   
       </div>
