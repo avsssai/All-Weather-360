@@ -1,11 +1,11 @@
 import React from "react";
 import Input from "./Input";
 import WeatherCard from "./WeatherCard";
-import Search from './Search';
+import Search from "./Search";
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,9 +19,9 @@ class App extends React.Component {
       components: [],
       number: 0,
       data: [],
-      searchData:[],
-      show:true,
-      cityWhat:''
+      searchData: [],
+      show: true,
+      cityWhat: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,47 +40,50 @@ class App extends React.Component {
     }
     var number = this.state.number;
     console.log(this.state.cityName);
-    const weatherCard = this.state.data  ? (
+    const weatherCard = this.state.data ? (
       <WeatherCard
         cityName={this.state.cityName}
         key={number}
         data={this.state.data}
       />
-    ) : 'no city found';
+    ) : (
+      "no city found"
+    );
     var components = this.state.components;
-    components.push(weatherCard);
+    components.unshift(weatherCard);
     // this.getWeather();
     this.setState({ components: components, number: number + 1, cityName: "" });
     this.closeSearch();
   }
-  search(){
+  search() {
     if (this.state.cityName === "") {
       return;
     }
     var city = this.state.cityName;
-     fetch(
-      `https://api.apixu.com/v1/search.json?key=2da827a3ce074ddb854173742190807&q=${city}`)
+    fetch(
+      `https://api.apixu.com/v1/search.json?key=2da827a3ce074ddb854173742190807&q=${city}`
+    )
       .then(res => res.json())
       // .then(searchData=>this.setState({searchData:searchData}))
-      .then(data=>this.manageSearchData(data))
-      .catch(err=>Promise.reject());
-      this.setState({show:true});
+      .then(data => this.manageSearchData(data))
+      .catch(err => Promise.reject());
+    this.setState({ show: true });
   }
-  manageSearchData(data){
+  manageSearchData(data) {
     var cities = [];
     // console.log(data);
-    data.forEach(el=>cities.push(el.name));
+    data.forEach(el => cities.push(el.name));
     // console.log(cities);
-    this.setState({searchData:cities});
+    this.setState({ searchData: cities });
   }
-  closeSearch =()=>{
+  closeSearch = () => {
     this.setState({
-      show:false
-    })
-  }
-  searchElement = (citySearched)=>{
+      show: false
+    });
+  };
+  searchElement = citySearched => {
     console.log(citySearched);
-    
+
     var number = this.state.number;
     const weatherCard = (
       <WeatherCard
@@ -90,29 +93,35 @@ class App extends React.Component {
       />
     );
     var components = this.state.components;
-    components.push(weatherCard);
+    components.unshift(weatherCard);
     // this.getWeather();
     this.setState({ components: components, number: number + 1, cityName: "" });
 
-
-
-
     this.closeSearch();
-  }
-  
+  };
 
   render() {
     var cards = this.state.components.map(card => card);
-    var searchComponent = <Search searchData={this.state.searchData}  searchElement={this.searchElement} ></Search>;
-    var initialContent =  (
+    var searchComponent = (
+      <Search
+        searchData={this.state.searchData}
+        searchElement={this.searchElement}
+      />
+    );
+    var initialContent = (
       <div>
         <div className="row">
-          <div className="col-2"></div>
-          <div className="col-8">    <p className="initial-message">Search the weather conditions in your favorite city.</p> 
-</div>
-          <div className="col-2"></div>
+          <div className="col-2" />
+          <div className="col-8">
+            {" "}
+            <p className="initial-message">
+              Search the weather conditions in your favorite city.
+            </p>
+          </div>
+          <div className="col-2" />
         </div>
-      </div>)
+      </div>
+    );
     return (
       <div className="app">
         {/* <div className="header">
@@ -133,15 +142,16 @@ class App extends React.Component {
         </div> */}
         <div className="header">
           <div className="heading">
-          <FontAwesomeIcon icon={faCloudSun} className="mainIcon" />
-        All Weather 360&#176;
-
+            <FontAwesomeIcon icon={faCloudSun} className="mainIcon" />
+            All Weather 360&#176;
           </div>
-          <a className="git-fork" href="https://github.com/avsssai/All-Weather-360" style={{textDecoration:'none',color:'white'}}>
-                  <FontAwesomeIcon icon={faGithub}/>
-                </a>
-
-
+          <a
+            className="git-fork"
+            href="https://github.com/avsssai/All-Weather-360"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
         </div>
         <Input
           handleChange={this.handleChange}
@@ -152,25 +162,20 @@ class App extends React.Component {
           closeSearch={this.closeSearch}
         />
         <div className="search-bar">
-          
-        {this.state.show ? searchComponent : ''}
-
+          {this.state.show ? searchComponent : ""}
         </div>
-        {this.state.number >= 1 ?         <div className="weather-cards">
-          <div className="container">
-            <div className="row">{cards}</div>
+        {this.state.number >= 1 ? (
+          <div className="weather-cards">
+            <div className="container">
+              <div className="row">{cards}</div>
+            </div>
           </div>
-        </div>
-  :
-  initialContent
-}
+        ) : (
+          initialContent
+        )}
 
-        <footer >
-          Made using ReactJs, Bootstrap and APIXU weather API.
-        </footer>
-  
+        <footer>Made using ReactJs, Bootstrap and APIXU weather API.</footer>
       </div>
-
     );
   }
 }
