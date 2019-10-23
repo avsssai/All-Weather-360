@@ -1,0 +1,19 @@
+#card-header{
+    text-align: center;
+    color: white;
+
+}
+
+#card{
+    text-align: center;
+    color: white;
+    background: #16394c;
+    border: none;
+    box-shadow: none;
+   
+
+}
+
+#forecast-temp{
+    color: white;
+}
