@@ -3,9 +3,7 @@ import '../styles/forecastcard.css'
 
 
 class ForecastCard extends React.Component{
-constructor(props){
-super(props);
-}
+
 render(){
 return (
 <div className="column">

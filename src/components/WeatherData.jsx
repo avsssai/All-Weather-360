@@ -2,22 +2,45 @@ import React from "react";
 import '../styles/weathercard.css';
 import Forecast from './Forecast';
 class WeatherCard extends React.Component{
-     
+    constructor(props){
+        super(props);
+        this.state = {
+            data:[]
+        }
+    }
+    componentDidMount(props){
+        fetch('http://api.openweathermap.org/data/2.5/weather?q=London&APPID=8393a531d816e8a4df3d2277c671afc9')
+            .then(res=>res.json())
+            .then(data=>{
+                this.setState({data:data});
+                console.log(data, data.sys.country);
+            })
+            .catch(err=> console.log(err));
+    } 
 
     render(){
+        var data = this.state.data;
+        var preconditionName = data && data.name;
+        var preconditionCountry = data && data.sys;
+        var preconditionWeather = data && data.weather;
+        var cityName = preconditionName ? data.name : 'Loading';
+        var countryName = preconditionCountry ? data.sys.country : 'Loading';
+        var weatherStatus = preconditionWeather ? data.weather[0].main : 'Loading';
+        var icon = preconditionWeather ? data.weather.icon : '';
         return(
             <div className="ui container segment" id='weather-card'>
                 <div className="ui inverted medium header" id='city-name'>
-                    New York, USA
+                    {cityName}, {countryName}
+                    
                 </div>
                 <div className="ui grid">
                     <div className="three column row" id='top-row'>
                         <div className="column" id='icon'>
                             <div  id='weather-icon'>
-                                <img className="ui centered tiny image" src="http://openweathermap.org/img/wn/01d@2x.png" alt="img"/>
+                                <img className="ui centered tiny image" src={"http://openweathermap.org/img/wn/09d@2x.png"} alt="img"/>
                                 
                             </div>
-                            <span id='weather-status'>Partly Cloudy</span>
+                            <span id='weather-status'>{weatherStatus}</span>
                             
                         </div>
                         <div className="column">
